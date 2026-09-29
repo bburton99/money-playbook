@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>The Money Playbook</title>
+<style>
+  :root{
+    color-scheme: dark;
+    --page:#0d0d0d;
+    --surface:#1a1a19;
+    --ink:#ffffff;
+    --ink-2:#c3c2b7;
+    --ink-muted:#898781;
+    --grid:#2c2c2a;
+    --baseline:#383835;
+    --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5;   /* blue  */
+    --series-2:#d95926;   /* orange */
+    --good:#0ca30c;
+    --critical:#d03b3b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--page)}
+  body{
+    width:1200px;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .poster{padding:64px 64px 48px}
+
+  /* ---------- header ---------- */
+  .kicker{
+    font-size:15px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--series-1);margin-bottom:14px;
+  }
+  h1{font-size:78px;font-weight:800;letter-spacing:-.02em;line-height:1.0}
+  .sub{font-size:22px;color:var(--ink-2);margin-top:14px;max-width:900px;line-height:1.45}
+
+  /* ---------- stat tiles ---------- */
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:36px}
+  .tile{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:24px 26px;
+  }
+  .tile .big{font-size:46px;font-weight:800;letter-spacing:-.01em}
+  .tile .big.blue{color:var(--series-1)}
+  .tile .big.orange{color:var(--series-2)}
+  .tile .big.green{color:var(--good)}
+  .tile .cap{font-size:15.5px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+
+  /* ---------- section headers ---------- */
+  .section-h{
+    display:flex;align-items:baseline;gap:14px;margin:52px 0 22px;
+  }
+  .section-h .t{font-size:30px;font-weight:800;letter-spacing:-.01em}
+  .section-h .d{font-size:16px;color:var(--ink-muted)}
+  .rule{flex:1;height:1px;background:var(--grid);align-self:center}
+
+  /* ---------- steps ---------- */
+  .steps{display:flex;flex-direction:column;gap:12px}
+  .step{
+    display:grid;grid-template-columns:76px 1fr 285px;gap:22px;align-items:center;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:20px 24px;
+  }
+  .num{
+    width:56px;height:56px;border-radius:12px;background:var(--series-1);
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:800;color:#fff;
+  }
+  .step h3{font-size:21px;font-weight:800;letter-spacing:.01em;text-transform:uppercase}
+  .step p{font-size:15.5px;color:var(--ink-2);line-height:1.45;margin-top:5px}
+  .step p b{color:var(--ink);font-weight:700}
+  .do{
+    border-left:2px solid var(--series-2);padding-left:16px;
+  }
+  .do .lbl{font-size:11.5px;font-weight:800;letter-spacing:.18em;color:var(--series-2);text-transform:uppercase}
+  .do .txt{font-size:15px;color:var(--ink);font-weight:600;margin-top:4px;line-height:1.35}
+
+  /* ---------- chart ---------- */
+  .chartcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 30px 20px}
+  .chartcard .ct{font-size:22px;font-weight:800}
+  .chartcard .cs{font-size:15px;color:var(--ink-muted);margin-top:4px}
+  .legend{display:flex;gap:26px;margin-top:14px}
+  .legend .li{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .sw{width:22px;height:4px;border-radius:2px}
+  #chart{margin-top:6px;display:block}
+  .takeaway{
+    margin-top:14px;padding-top:14px;border-top:1px solid var(--grid);
+    font-size:16.5px;color:var(--ink-2);
+  }
+  .takeaway b{color:var(--ink)}
+
+  /* ---------- traps ---------- */
+  .traps{
+    background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--critical);
+    border-radius:14px;padding:24px 28px;
+  }
+  .traps .th{display:flex;align-items:center;gap:12px}
+  .traps .th svg{flex:none}
+  .traps .th .t{font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+  .traps .th .d{font-size:15px;color:var(--ink-muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .chip{
+    border:1px solid var(--border);border-radius:999px;padding:9px 18px;
+    font-size:15px;font-weight:600;color:var(--ink-2);background:var(--page);
+  }
+  .chip s{color:var(--ink-muted)}
+
+  /* ---------- footer rules ---------- */
+  .axioms{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+  .axiom{
+    display:flex;gap:12px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--border);border-radius:12px;padding:16px 20px;
+  }
+  .axiom .n{color:var(--good);font-weight:800;font-size:17px;line-height:1.4}
+  .axiom .x{font-size:16px;line-height:1.4;color:var(--ink-2)}
+  .axiom .x b{color:var(--ink)}
+  .foot{
+    margin-top:36px;padding-top:18px;border-top:1px solid var(--grid);
+    font-size:13px;color:var(--ink-muted);line-height:1.6;
+    display:flex;justify-content:space-between;gap:40px;
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- HEADER -->
+  <div class="kicker">No get-rich-quick schemes · just the boring stuff that works</div>
+  <h1>THE MONEY PLAYBOOK</h1>
+  <div class="sub">Eight moves to make in your 20s — time-tested, advisor-approved, and built for guys ages 20–25. Run them in order.</div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="tile">
+      <div class="big blue">$1.12M</div>
+      <div class="cap">what <b style="color:var(--ink)">$250/month</b> grows to by 65 if you start at 22 (8% avg. return)</div>
+    </div>
+    <div class="tile">
+      <div class="big green">50–100%</div>
+      <div class="cap">instant return on your employer's 401(k) match — the best deal in finance</div>
+    </div>
+    <div class="tile">
+      <div class="big orange">20%+</div>
+      <div class="cap">typical credit card APR. No investment reliably beats it — kill the debt first</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="section-h"><span class="t">The 8 Moves</span><span class="rule"></span><span class="d">in this order</span></div>
+  <div class="steps">
+
+    <div class="step">
+      <div class="num">1</div>
+      <div><h3>Run your numbers</h3>
+        <p>Give every dollar a job: <b>tithing (10%) off the top on payday</b> — budget it first — then split the rest <b>50% needs · 30% wants · 20% saving</b>. You can't fix what you don't track.</p></div>
+      <div class="do"><div class="lbl">Do it tonight</div><div class="txt">Track one month of spending in a free budgeting app</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div><h3>Stash $1,000 fast</h3>
+        <p>A starter emergency fund in a <b>high-yield savings account</b> keeps a blown tire from becoming card debt. Grow it to <b>3–6 months of expenses</b> once you're working full-time.</p></div>
+      <div class="do"><div class="lbl">Do it this week</div><div class="txt">Open a HYSA at a different bank than your checking</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div><h3>Avoid debt. Borrow on purpose.</h3>
+        <p>Don't finance a lifestyle: <b>no revolving balances</b>, minimize loans on depreciating assets. <b>Your car has one job — getting you there.</b> Function over form; the flex can wait. Student loans only where the degree pays for itself. Carrying 20%+ card debt? <b>Avalanche it</b>: highest APR first.</p></div>
+      <div class="do"><div class="lbl">Borrowing rule</div><div class="txt">Total student debt under your expected first-year salary</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">4</div>
+      <div><h3>Build credit like an adult</h3>
+        <p>One no-fee card, <b>autopay the full balance</b> every month, stay under 30% of the limit. Carrying a balance does <b>not</b> build credit — that myth just costs you interest.</p></div>
+      <div class="do"><div class="lbl">Set &amp; forget</div><div class="txt">Autopay: statement balance, in full, every month</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">5</div>
+      <div><h3>Take the free money</h3>
+        <p>Contribute enough to grab <b>every dollar of your 401(k) match</b> — a guaranteed 50–100% return. Check the vesting schedule.</p></div>
+      <div class="do"><div class="lbl">10 minutes</div><div class="txt">One HR form. Done.</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">6</div>
+      <div><h3>Invest boring. Automate it.</h3>
+        <p>Open a <b>Roth IRA</b> (up to $7,500 in 2026), buy <b>low-cost index funds</b>, auto-invest every payday. Time in the market beats timing the market — every time.</p></div>
+      <div class="do"><div class="lbl">Target</div><div class="txt">15–25% of gross income, automated — the core never gets touched</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">7</div>
+      <div><h3>Protect the downside</h3>
+        <p>Health + renters (~$15/mo) + disability insurance now. <b>Life insurance only when someone depends on your income</b> — then cheap 20–30yr term (~10× income). Never whole life.</p></div>
+      <div class="do"><div class="lbl">Red flag</div><div class="txt">"Advisors" pitching whole life to 22-year-olds work for commission, not you</div></div>
+    </div>
+
+    <div class="step">
+      <div class="num">8</div>
+      <div><h3>Earn your swings</h3>
+        <p>Moves 1–7 locked in? Now you get a sandbox: <b>5–10% of your portfolio, max</b> — single stocks, a real estate fund, a side venture. Separate account, <b>never borrowed money</b>, and skim the wins back into index funds. Losses are tuition.</p></div>
+      <div class="do"><div class="lbl">House rule</div><div class="txt">Only money you could lose 100% of without changing your life</div></div>
+    </div>
+
+  </div>
+
+  <!-- CHART -->
+  <div class="section-h"><span class="t">The Cost of Waiting</span><span class="rule"></span><span class="d">why starting now is the whole game</span></div>
+  <div class="chartcard">
+    <div class="ct">$250 a month, 8% average annual return</div>
+    <div class="cs">Portfolio value by age — same habit, different start age</div>
+    <div class="legend">
+      <div class="li"><span class="sw" style="background:var(--series-1)"></span>Start at 22</div>
+      <div class="li"><span class="sw" style="background:var(--series-2)"></span>Start at 32</div>
+    </div>
+    <svg id="chart" width="1044" height="360" viewBox="0 0 1044 360" role="img" aria-label="Line chart: investing $250 per month at 8% from age 22 reaches about $1.12 million by 65; starting at 32 reaches about $0.48 million."></svg>
+    <div class="takeaway">Waiting ten years costs about <b>$635,000</b> — while only saving you ~$30K in contributions. <b>Start now, even small.</b></div>
+  </div>
+
+  <!-- TRAPS -->
+  <div class="section-h"><span class="t">Skip the Noise</span><span class="rule"></span><span class="d">the stuff marketed hardest at you</span></div>
+  <div class="traps">
+    <div class="th">
+      <svg width="26" height="24" viewBox="0 0 26 24" fill="none">
+        <path d="M13 2 L25 22 H1 Z" fill="var(--critical)"/>
+        <rect x="12" y="9" width="2.4" height="7" rx="1.2" fill="#fff"/>
+        <circle cx="13.2" cy="19" r="1.5" fill="#fff"/>
+      </svg>
+      <span class="t">Wealth killers</span>
+      <span class="d">— if it promises fast money, it's taking yours</span>
+    </div>
+    <div class="chips">
+      <span class="chip">Day-trading &amp; meme coins</span>
+      <span class="chip">Sports betting apps</span>
+      <span class="chip">Whole-life insurance pitches</span>
+      <span class="chip">BNPL everything</span>
+      <span class="chip">$700/mo car on a $45K salary</span>
+      <span class="chip">"Passive income" course bros</span>
+      <span class="chip">Lifestyle inflation with every raise</span>
+    </div>
+  </div>
+
+  <!-- AXIOMS -->
+  <div class="section-h"><span class="t">Rules That Never Change</span><span class="rule"></span></div>
+  <div class="axioms">
+    <div class="axiom"><span class="n">01</span><span class="x"><b>Pay God and yourself first.</b> Tithing and savings come out on payday — before you can spend them.</span></div>
+    <div class="axiom"><span class="n">02</span><span class="x"><b>Spend less than you earn — invest the gap.</b> That sentence is 90% of personal finance.</span></div>
+    <div class="axiom"><span class="n">03</span><span class="x"><b>If it sounds too good to be true, it is.</b> Real wealth compounds slowly, then suddenly.</span></div>
+    <div class="axiom"><span class="n">04</span><span class="x"><b>Your biggest asset is your earning power.</b> Your degree and skills out-earn any hot stock tip.</span></div>
+  </div>
+
+  <div class="foot">
+    <span>Grounded in time-tested practice: Bogleheads philosophy · Financial Order of Operations · CFP planning consensus.<br>2026 IRS limits: Roth IRA $7,500 · 401(k) $24,500.</span>
+    <span style="text-align:right">Educational content, not individualized<br>financial advice.</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const W=1044,H=360,mL=74,mR=118,mT=18,mB=40;
+  const pw=W-mL-mR, ph=H-mT-mB;
+  const r=0.08/12, P=250, endAge=65, maxV=1200000;
+
+  function series(startAge){
+    const out=[]; let val=0;
+    for(let age=startAge; age<endAge; age++){
+      out.push([age,val]);
+      for(let m=0;m<12;m++){ val=val*(1+r)+P; }
+    }
+    out.push([endAge,val]);
+    return out;
+  }
+  const x=age=>mL+(age-22)/(endAge-22)*pw;
+  const y=v=>mT+ph-(v/maxV)*ph;
+  const svg=document.getElementById('chart');
+  const NS='http://www.w3.org/2000/svg';
+  function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;}
+  function fmt(v){return v>=1e6?('$'+(v/1e6).toFixed(2)+'M'):('$'+Math.round(v/1000)+'K');}
+
+  // gridlines + y labels
+  [0,300000,600000,900000,1200000].forEach(v=>{
+    el('line',{x1:mL,x2:mL+pw,y1:y(v),y2:y(v),stroke:v===0?'#383835':'#2c2c2a','stroke-width':1});
+    const t=el('text',{x:mL-10,y:y(v)+4,'text-anchor':'end',fill:'#898781','font-size':'13','font-family':'system-ui,sans-serif'});
+    t.textContent=v===0?'$0':fmt(v).replace('.00','');
+  });
+  // x labels
+  [22,30,40,50,60,65].forEach(a=>{
+    const t=el('text',{x:x(a),y:mT+ph+26,'text-anchor':'middle',fill:'#898781','font-size':'13','font-family':'system-ui,sans-serif'});
+    t.textContent='Age '+a;
+  });
+
+  const colors={22:'#3987e5',32:'#d95926'};
+  const finals={};
+  [32,22].forEach(sa=>{
+    const pts=series(sa);
+    finals[sa]=pts[pts.length-1][1];
+    const d=pts.map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ');
+    // area wash
+    el('path',{d:d+' L '+x(65)+' '+y(0)+' L '+x(sa)+' '+y(0)+' Z',fill:colors[sa],opacity:sa===22?0.10:0.08});
+    el('path',{d,fill:'none',stroke:colors[sa],'stroke-width':2.5,'stroke-linejoin':'round'});
+    // end marker + ring
+    el('circle',{cx:x(65),cy:y(finals[sa]),r:6.5,fill:'#1a1a19'});
+    el('circle',{cx:x(65),cy:y(finals[sa]),r:4.5,fill:colors[sa]});
+  });
+  // direct end labels (text tokens for value, series name colored mark already present)
+  [[22,-6],[32,10]].forEach(([sa,dy])=>{
+    const t=el('text',{x:x(65)+12,y:y(finals[sa])+dy,fill:'#ffffff','font-size':'17','font-weight':'800','font-family':'system-ui,sans-serif'});
+    t.textContent=fmt(finals[sa]);
+    const s=el('text',{x:x(65)+12,y:y(finals[sa])+dy+17,fill:'#898781','font-size':'12','font-family':'system-ui,sans-serif'});
+    s.textContent='start at '+sa;
+  });
+  // gap annotation between line ends
+  const gy1=y(finals[22]), gy2=y(finals[32]), gx=x(65)+62;
+  el('line',{x1:gx,x2:gx,y1:gy1+26,y2:gy2-26,stroke:'#52514e','stroke-width':1,'stroke-dasharray':'3 3'});
+  const gt=el('text',{x:gx,y:(gy1+gy2)/2+1,'text-anchor':'middle',fill:'#c3c2b7','font-size':'13','font-weight':'700','font-family':'system-ui,sans-serif'});
+  gt.textContent='–$'+Math.round((finals[22]-finals[32])/1000)+'K';
+})();
+</script>
+</body>
+</html>
